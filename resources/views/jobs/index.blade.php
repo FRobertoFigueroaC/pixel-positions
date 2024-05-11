@@ -10,11 +10,11 @@ Hola<x-layout>
 
     <section class="pt-10">
       <x-section-heading>
-        Top Jobs
+        Feature Jobs
       </x-section-heading>
 
       <div class="grid lg:grid-cols-3 gap-8 sm:grid-cols-2 mt-6">
-        @foreach ($jobs as $job)
+        @foreach ($featuredJobs as $job)
           <x-job-card :$job/>
         @endforeach
       </div>
