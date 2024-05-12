@@ -6,6 +6,8 @@ use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;
 use App\Models\Tag;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
@@ -15,12 +17,12 @@ class JobController extends Controller
     public function index()
     {
 
-      $jobs = Job::all()->groupBy('featured');
+      $jobs = Job::latest()->with(['employer', 'tags'])->get()->groupBy('featured');
 
       $tags = Tag::all();
       return view('jobs.index', [
-          'featuredJobs' => $jobs[1],
           'jobs' => $jobs[0],
+          'featuredJobs' => $jobs[1],
           'tags' => $tags
       ]);
     }
@@ -30,7 +32,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('jobs.create');
     }
 
     /**
@@ -38,7 +40,19 @@ class JobController extends Controller
      */
     public function store(StoreJobRequest $request)
     {
-        //
+      $attributes = $request->all();
+      
+      $attributes['featured'] = $request->has('featured');
+      $attributes['remote'] = $request->has('remote');
+      
+      $job = Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags'));
+      if ($attributes['tags'] ?? false) {
+        foreach (explode(',', $attributes['tags']) as $tag){
+          $job->tag($tag);
+        }
+      }
+
+      return redirect('/');
     }
 
     /**
