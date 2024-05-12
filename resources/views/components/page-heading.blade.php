@@ -1,3 +1,3 @@
-<div class="font-bold text-center text-4x mb-8">
+<div class="font-bold text-center text-4xl mb-8">
   {{$slot}}
 </div>

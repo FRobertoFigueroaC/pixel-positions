@@ -9,7 +9,9 @@
 
   <div class="py-8">
     <h3 class="group-hover:text-blue-600 transition-colors duration-300 text-xl font-bold">
-      {{$job->title}}
+      <a href="{{$job->url}}" target="_blank">
+        {{$job->title}}
+      </a>
     </h3>
     <p class="text-sm mt-4">
       {{$job->schedule}} - {{$job->salary}}
@@ -24,7 +26,7 @@
       
     </div>
 
-    <x-employer-logo :logo="$job->employer->logo" :width="42" />
+    <x-employer-logo :employer="$job->employer" :width="42" />
   </div>
 
 </x-panel>

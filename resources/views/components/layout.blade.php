@@ -23,10 +23,16 @@
         <a href="#">Salaries</a>
         <a href="#">Companies</a>
       </div>
-      <div class="space-x-4">
+      <div class="space-x-6 font-bold flex">
         @auth
           <a href="/jobs/create">Post a Job</a>
-          <a href="/logout">Log Out</a>
+
+          <form method="POST" action="/logout">
+            @csrf
+            @method('DELETE')
+
+            <button type="submit">Log Out</button>
+          </form>
           @endauth
           @guest
             <a href="/login">Log In</a>
