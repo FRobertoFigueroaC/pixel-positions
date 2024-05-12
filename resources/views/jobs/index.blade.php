@@ -1,11 +1,11 @@
-Hola<x-layout>
+<x-layout>
   <div class="space-y-10">
     <section class="text-center pt-6">
       <h1 class="font-bold text-4xl">Let's find your next job</h1>
-      <form action="">
-        <input type="text" class="rounded-xl bg-white/5 border-white/10 px-5 py-4 w-full mt-6 max-w-xl"
-          placeholder="Web Developer">
-      </form>
+
+      <x-forms.form action="/search" class="mt-6">
+        <x-forms.input :label="false" name="q" placeholder="Web Developer ..."/>
+      </x-forms.form>
     </section>
 
     <section class="pt-10">
